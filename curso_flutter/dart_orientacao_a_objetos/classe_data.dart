@@ -10,7 +10,14 @@ class Data {
   // }
 
   Data([this.dia = 1, this.mes = 1, this.ano = 1970]);
+
+  // Contrutores nomeados.
   Data.com({this.dia = 1, this.mes = 1, this.ano = 1970});
+  Data.ultimoDiaDoAno(int ano) {
+    this.dia = 31;
+    this.mes = 12;
+    this.ano = ano;
+  }
 
   String obterDataFormatada() {
     return "$dia/$mes/$ano";
@@ -39,4 +46,11 @@ main() {
   print(dataCompra.obterDataFormatada());
 
   print(dataAniversario);
+
+  print(Data.com(ano: 2022));
+
+  var dataFinal = Data.com(dia: 12, mes: 07, ano: 2024);
+  print(dataFinal);
+
+  print(Data.ultimoDiaDoAno(2014));
 }
