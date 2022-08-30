@@ -1,3 +1,5 @@
 import 'venda.dart';
 
-main() {}
+main() {
+  Venda teste1 = Venda();
+}
