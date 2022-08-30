@@ -9,4 +9,5 @@ main() {
 
   print(lamborghini.estaNoLimite());
   print(lamborghini.frear());
+  print(lamborghini.velocidadeAtual);
 }
