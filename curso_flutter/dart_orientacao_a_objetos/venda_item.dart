@@ -8,7 +8,7 @@ class VendaItem {
   VendaItem({this.produto, this.quantidade = 1});
 
   double? get preco {
-    if (produto != null && _preco == null) {
+    if (produto != null && _preco != null) {
       _preco = produto?.precoComDesconto;
     }
     return _preco;
