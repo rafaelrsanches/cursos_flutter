@@ -28,11 +28,13 @@ class PerguntaApp extends StatelessWidget {
               ),
               ElevatedButton(
                 child: Text("Resposta 2"),
-                onPressed: responder,
+                onPressed: () {
+                  print("Resposta 2 selecionada!");
+                },
               ),
               ElevatedButton(
                 child: Text("Resposta 3"),
-                onPressed: responder,
+                onPressed: () => print("Resposta 3 selecionada!"),
               )
             ],
           ),
