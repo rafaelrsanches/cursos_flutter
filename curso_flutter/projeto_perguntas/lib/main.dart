@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 main() => runApp(PerguntaApp());
 
-class PerguntaApp extends StatelessWidget {
+class perguntaAppState extends State<PerguntaApp> {
   int perguntaSelecionada = 0;
 
   void responder() {
-    perguntaSelecionada++;
+    setState(() {
+      perguntaSelecionada++;
+    });
     print(perguntaSelecionada);
-    print("Pergunta respondida");
   }
 
   final List<String> perguntas = [
@@ -42,4 +43,11 @@ class PerguntaApp extends StatelessWidget {
           ),
         ),
       );
+}
+
+class PerguntaApp extends StatefulWidget {
+  @override
+  perguntaAppState createState() {
+    return perguntaAppState();
+  }
 }
