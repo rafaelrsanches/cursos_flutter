@@ -7,6 +7,7 @@ main() => runApp(PerguntaApp());
 
 class _perguntaAppState extends State<PerguntaApp> {
   int _perguntaSelecionada = 0;
+  int _pontuacaoTotal = 0;
   final List<Map<String, Object>> _perguntas = const [
     {
       "texto": "Qual é a sua cor favorita?",
@@ -37,10 +38,11 @@ class _perguntaAppState extends State<PerguntaApp> {
     }
   ];
 
-  void _responder() {
+  void _responder(int pontuacao) {
     if (temPerguntaSelecionada) {
       setState(() {
         _perguntaSelecionada++;
+        _pontuacaoTotal += pontuacao;
       });
     }
   }
@@ -62,7 +64,7 @@ class _perguntaAppState extends State<PerguntaApp> {
                 perguntas: _perguntas,
                 perguntaSelecionada: _perguntaSelecionada,
                 responder: _responder)
-            : Resultado(),
+            : Resultado(_pontuacaoTotal),
       ),
     );
   }
