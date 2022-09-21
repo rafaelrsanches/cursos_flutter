@@ -1,6 +1,7 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
   final void Function(String, double) onSubmit;
@@ -12,19 +13,36 @@ class TransactionForm extends StatefulWidget {
 }
 
 class _TransactionFormState extends State<TransactionForm> {
-  final titleController = TextEditingController();
-
-  final valueController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _valueController = TextEditingController();
+  var _selectedDate;
 
   _submitForm() {
-    final String title = titleController.text;
-    final double value = double.tryParse(valueController.text) ?? 0.0;
+    final String title = _titleController.text;
+    final double value = double.tryParse(_valueController.text) ?? 0.0;
 
     if (title.isEmpty || value <= 0) {
       return;
     }
 
     widget.onSubmit(title, value);
+  }
+
+  _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -36,14 +54,14 @@ class _TransactionFormState extends State<TransactionForm> {
         child: Column(
           children: <Widget>[
             TextField(
-              controller: titleController,
+              controller: _titleController,
               onSubmitted: (_) => _submitForm(),
               decoration: InputDecoration(
                 labelText: "Título",
               ),
             ),
             TextField(
-                controller: valueController,
+                controller: _valueController,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (_) => _submitForm(),
                 decoration: InputDecoration(
@@ -52,9 +70,14 @@ class _TransactionFormState extends State<TransactionForm> {
             Container(
               height: 70,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Text("Nenhuma data selecionada!"),
+                  Expanded(
+                    child: Text(
+                      _selectedDate == null
+                          ? "Nenhuma data selecionada!"
+                          : "Data selecionada: ${DateFormat("dd/MM/y").format(_selectedDate)}",
+                    ),
+                  ),
                   TextButton(
                     child: Text(
                       "Selecionar Data",
@@ -62,7 +85,7 @@ class _TransactionFormState extends State<TransactionForm> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    onPressed: (() {}),
+                    onPressed: _showDatePicker,
                   ),
                 ],
               ),
